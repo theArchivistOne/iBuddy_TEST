@@ -1,166 +1,225 @@
 import React from "react";
 
-// Ultra Cyber Design - aber nur mit stabilen Web Features
-export default function NexusCyberAI() {
+export default function NexusOrganicAI() {
   return (
-    <div className="min-h-screen bg-black text-white overflow-hidden">
-      {/* Cyber Background */}
-      <div className="fixed inset-0 bg-gradient-to-br from-cyan-900/20 via-purple-900/10 to-black -z-10" />
-      
-      {/* Animated Grid - Pure CSS = STABIL */}
-      <div 
-        className="fixed inset-0 -z-10 opacity-20"
-        style={{
-          backgroundImage: `
-            linear-gradient(rgba(0, 240, 255, 0.1) 1px, transparent 1px),
-            linear-gradient(90deg, rgba(0, 240, 255, 0.1) 1px, transparent 1px)
-          `,
-          backgroundSize: '50px 50px'
-        }}
-      />
+    <div className="min-h-screen bg-black text-white overflow-x-hidden">
+      {/* Organic Gradient Background */}
+      <div className="fixed inset-0 -z-20">
+        <div className="absolute inset-0 bg-gradient-to-br from-cyan-900/30 via-purple-900/20 to-black" />
+        <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-cyan-500/10 rounded-full blur-3xl" />
+        <div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-purple-500/10 rounded-full blur-3xl" />
+      </div>
 
-      {/* Header */}
-      <header className="border-b border-cyan-500/30 bg-black/80 backdrop-blur-lg">
-        <div className="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
-          <div className="flex items-center gap-4">
-            <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-cyan-500 to-purple-600 flex items-center justify-center">
-              <div className="text-white font-bold">N</div>
+      {/* Floating Grid */}
+      <div className="fixed inset-0 -z-10 opacity-10">
+        <div className="absolute inset-0" style={{
+          backgroundImage: `radial-gradient(circle at 1px 1px, rgba(0, 240, 255, 0.15) 1px, transparent 0)`,
+          backgroundSize: '40px 40px'
+        }} />
+      </div>
+
+      {/* Floating Navigation */}
+      <nav className="fixed top-8 left-1/2 transform -translate-x-1/2 z-50">
+        <div className="flex items-center gap-8 bg-black/20 backdrop-blur-xl border border-cyan-500/30 rounded-2xl px-8 py-4">
+          <div className="flex items-center gap-3">
+            <div className="w-8 h-8 bg-gradient-to-br from-cyan-400 to-purple-500 rounded-lg flex items-center justify-center">
+              <span className="text-black font-bold text-sm">N</span>
             </div>
-            <div>
-              <h1 className="text-2xl font-black bg-gradient-to-r from-cyan-400 to-purple-500 bg-clip-text text-transparent">
-                NEXUS
-              </h1>
-              <div className="text-xs text-cyan-400/60">AI ECOSYSTEM</div>
-            </div>
+            <span className="text-white font-semibold">Nexus</span>
           </div>
-          
-          <div className="flex items-center gap-6">
-            {['DASHBOARD', 'AGENTS', 'SYSTEM'].map((item) => (
-              <button key={item} className="text-cyan-300/80 hover:text-cyan-400 text-sm font-medium transition-colors">
+          <div className="flex gap-6">
+            {['Dashboard', 'Agents', 'System'].map((item) => (
+              <button key={item} className="text-cyan-200/80 hover:text-cyan-400 transition-colors text-sm">
                 {item}
               </button>
             ))}
           </div>
         </div>
-      </header>
+      </nav>
 
-      {/* Main Hero */}
-      <section className="pt-32 pb-40 text-center">
-        <div className="max-w-6xl mx-auto px-6">
-          {/* Main Title */}
-          <h1 className="text-6xl md:text-8xl font-black mb-8">
-            <span className="bg-gradient-to-r from-cyan-400 via-purple-500 to-cyan-400 bg-clip-text text-transparent">
-              NEXUS CORE
-            </span>
-          </h1>
+      {/* Hero Section - Organic Flow */}
+      <section className="pt-40 pb-32 relative">
+        <div className="max-w-6xl mx-auto px-6 text-center">
           
-          <p className="text-xl md:text-2xl text-cyan-200/80 max-w-3xl mx-auto mb-12">
-            ENTERPRISE KI-ÖKOSYSTEM • MULTI-AGENT ARCHITECTURE • REAL-TIME PROCESSING
+          {/* Animated Title */}
+          <div className="relative inline-block mb-8">
+            <h1 className="text-7xl md:text-9xl font-black tracking-tighter">
+              <span className="bg-gradient-to-r from-cyan-300 via-purple-400 to-cyan-300 bg-clip-text text-transparent animate-pulse">
+                NEXUS
+              </span>
+            </h1>
+            <div className="absolute -inset-4 bg-cyan-500/10 blur-xl rounded-full -z-10" />
+          </div>
+
+          {/* Flowing Subtitle */}
+          <p className="text-2xl md:text-3xl text-cyan-200/80 max-w-3xl mx-auto leading-relaxed">
+            Where artificial intelligence meets <span className="text-cyan-300">organic</span> intelligence
           </p>
 
-          {/* Cyber Metrics */}
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-6 max-w-4xl mx-auto">
+          {/* Floating Metrics */}
+          <div className="flex flex-wrap justify-center gap-8 mt-16">
             {[
-              { value: "12.8K", label: "REQ/MIN", color: "from-cyan-400 to-cyan-600" },
-              { value: "99.97%", label: "UPTIME", color: "from-green-400 to-green-600" },
-              { value: "47ms", label: "LATENCY", color: "from-purple-400 to-purple-600" },
-              { value: "256", label: "AGENTS", color: "from-cyan-400 to-purple-600" }
+              { value: "98%", label: "Accuracy", emoji: "🎯" },
+              { value: "47ms", label: "Response", emoji: "⚡" },
+              { value: "24/7", label: "Uptime", emoji: "🌐" },
+              { value: "AI", label: "Powered", emoji: "🧠" }
             ].map((metric, index) => (
               <div 
                 key={index}
-                className="bg-gradient-to-br from-gray-900/50 to-cyan-900/20 border border-cyan-500/30 rounded-2xl p-6 backdrop-blur-sm"
+                className="group relative"
               >
-                <div className={`text-3xl font-bold bg-gradient-to-r ${metric.color} bg-clip-text text-transparent`}>
-                  {metric.value}
+                <div className="bg-gradient-to-br from-cyan-500/10 to-purple-500/10 border border-cyan-500/20 rounded-2xl p-6 backdrop-blur-sm hover:border-cyan-400/40 transition-all duration-500 hover:scale-105">
+                  <div className="text-3xl mb-2">{metric.emoji}</div>
+                  <div className="text-2xl font-bold text-cyan-300">{metric.value}</div>
+                  <div className="text-cyan-200/60 text-sm">{metric.label}</div>
                 </div>
-                <div className="text-cyan-300/60 text-sm mt-2">{metric.label}</div>
+                <div className="absolute inset-0 bg-cyan-400/5 rounded-2xl blur-md -z-10 group-hover:bg-cyan-400/10 transition-all" />
               </div>
             ))}
           </div>
         </div>
       </section>
 
-      {/* AI Agents Section */}
-      <section className="py-20 border-t border-cyan-500/30">
+      {/* AI Agents - Organic Cards */}
+      <section className="py-20 relative">
         <div className="max-w-7xl mx-auto px-6">
-          <h2 className="text-4xl md:text-5xl font-black text-center mb-16">
-            <span className="bg-gradient-to-r from-cyan-400 to-purple-500 bg-clip-text text-transparent">
-              ACTIVE AI AGENTS
+          <h2 className="text-5xl md:text-6xl font-black text-center mb-20">
+            <span className="bg-gradient-to-r from-purple-300 to-cyan-300 bg-clip-text text-transparent">
+              Intelligent Systems
             </span>
           </h2>
 
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {[
-              { name: "NEXUS CORE", status: "ONLINE", desc: "Master AI Orchestration" },
-              { name: "SECURITY AI", status: "ONLINE", desc: "Threat Detection & GDPR" },
-              { name: "WEB AGENT", status: "ONLINE", desc: "Real-time Development" },
-              { name: "DATA FLOW", status: "STANDBY", desc: "Vector Processing" },
-              { name: "CHAT API", status: "ONLINE", desc: "Multi-Modal Interface" },
-              { name: "DEV OPS", status: "ONLINE", desc: "Auto-Scaling Infrastructure" }
-            ].map((agent, index) => (
-              <div 
-                key={index}
-                className="bg-gradient-to-br from-gray-900/50 to-purple-900/20 border border-purple-500/30 rounded-2xl p-6 backdrop-blur-sm hover:border-cyan-400/50 transition-all duration-300"
-              >
-                <div className="flex items-center justify-between mb-4">
-                  <h3 className="text-xl font-bold text-white">{agent.name}</h3>
-                  <div className={`px-3 py-1 rounded-full text-xs font-bold ${
-                    agent.status === 'ONLINE' 
-                      ? 'bg-green-500/20 text-green-300 border border-green-500/30' 
-                      : 'bg-amber-500/20 text-amber-300 border border-amber-500/30'
-                  }`}>
-                    {agent.status}
+          <div className="grid lg:grid-cols-2 gap-8">
+            {/* Left Column - Main Agents */}
+            <div className="space-y-6">
+              {[
+                { 
+                  name: "Neural Core", 
+                  status: "active", 
+                  description: "Central nervous system of the AI ecosystem",
+                  gradient: "from-cyan-400/20 to-cyan-600/20",
+                  pulse: true
+                },
+                { 
+                  name: "Quantum Flow", 
+                  status: "processing", 
+                  description: "Real-time data stream analysis",
+                  gradient: "from-purple-400/20 to-purple-600/20",
+                  pulse: true
+                }
+              ].map((agent, index) => (
+                <div 
+                  key={index}
+                  className="group relative overflow-hidden rounded-3xl border border-cyan-500/30 bg-gradient-to-br from-black/40 to-black/20 backdrop-blur-sm p-8 hover:border-cyan-400/50 transition-all duration-500"
+                >
+                  <div className="flex items-start justify-between mb-4">
+                    <h3 className="text-2xl font-bold text-white">{agent.name}</h3>
+                    <div className={`px-3 py-1 rounded-full text-xs font-bold ${
+                      agent.status === 'active' 
+                        ? 'bg-green-500/20 text-green-300 border border-green-500/30' 
+                        : 'bg-blue-500/20 text-blue-300 border border-blue-500/30'
+                    }`}>
+                      {agent.status.toUpperCase()}
+                    </div>
                   </div>
+                  <p className="text-cyan-200/70 text-lg leading-relaxed">{agent.description}</p>
+                  <div className="flex items-center gap-2 mt-4">
+                    <div className={`w-2 h-2 rounded-full ${agent.pulse ? 'animate-pulse' : ''} ${
+                      agent.status === 'active' ? 'bg-green-400' : 'bg-blue-400'
+                    }`} />
+                    <div className="text-cyan-400/60 text-sm">neural network v4.2</div>
+                  </div>
+                  
+                  {/* Organic background effect */}
+                  <div className={`absolute inset-0 bg-gradient-to-br ${agent.gradient} opacity-0 group-hover:opacity-100 transition-opacity duration-500 -z-10`} />
                 </div>
-                <p className="text-cyan-200/70 text-sm">{agent.desc}</p>
-                <div className="flex items-center gap-2 mt-4">
-                  <div className={`w-2 h-2 rounded-full ${
-                    agent.status === 'ONLINE' ? 'bg-green-400 animate-pulse' : 'bg-amber-400'
-                  }`} />
-                  <div className="text-cyan-400/60 text-xs">AI CORE v4.2</div>
+              ))}
+            </div>
+
+            {/* Right Column - Support Systems */}
+            <div className="space-y-6">
+              {[
+                { 
+                  name: "Vision Engine", 
+                  status: "active", 
+                  description: "Multi-modal perception and understanding",
+                  gradient: "from-purple-400/20 to-cyan-400/20"
+                },
+                { 
+                  name: "Memory Matrix", 
+                  status: "learning", 
+                  description: "Continuous knowledge integration",
+                  gradient: "from-cyan-400/20 to-purple-400/20"
+                }
+              ].map((agent, index) => (
+                <div 
+                  key={index}
+                  className="group relative overflow-hidden rounded-3xl border border-purple-500/30 bg-gradient-to-br from-black/40 to-black/20 backdrop-blur-sm p-8 hover:border-purple-400/50 transition-all duration-500"
+                >
+                  <div className="flex items-start justify-between mb-4">
+                    <h3 className="text-2xl font-bold text-white">{agent.name}</h3>
+                    <div className={`px-3 py-1 rounded-full text-xs font-bold ${
+                      agent.status === 'active' 
+                        ? 'bg-green-500/20 text-green-300 border border-green-500/30' 
+                        : 'bg-amber-500/20 text-amber-300 border border-amber-500/30'
+                    }`}>
+                      {agent.status.toUpperCase()}
+                    </div>
+                  </div>
+                  <p className="text-cyan-200/70 text-lg leading-relaxed">{agent.description}</p>
+                  <div className="flex items-center gap-2 mt-4">
+                    <div className={`w-2 h-2 rounded-full ${
+                      agent.status === 'active' ? 'bg-green-400' : 'bg-amber-400'
+                    }`} />
+                    <div className="text-purple-400/60 text-sm">cognitive system</div>
+                  </div>
+                  
+                  {/* Organic background effect */}
+                  <div className={`absolute inset-0 bg-gradient-to-br ${agent.gradient} opacity-0 group-hover:opacity-100 transition-opacity duration-500 -z-10`} />
                 </div>
-              </div>
-            ))}
+              ))}
+            </div>
           </div>
         </div>
       </section>
 
       {/* CTA Section */}
-      <section className="py-20 bg-gradient-to-r from-cyan-900/20 to-purple-900/20 border-y border-cyan-500/30">
-        <div className="max-w-4xl mx-auto text-center px-6">
-          <h2 className="text-4xl md:text-5xl font-black text-white mb-6">
-            READY FOR NEXT-GEN AI?
+      <section className="py-32 relative overflow-hidden">
+        <div className="absolute inset-0 bg-gradient-to-r from-cyan-500/10 via-purple-500/10 to-cyan-500/10" />
+        <div className="max-w-4xl mx-auto text-center px-6 relative z-10">
+          <h2 className="text-5xl md:text-6xl font-black text-white mb-8">
+            Begin the Journey
           </h2>
-          <p className="text-cyan-200/80 text-xl mb-8">
-            Scale from 1 to 1000+ users with enterprise-grade artificial intelligence.
+          <p className="text-xl text-cyan-200/80 mb-12 max-w-2xl mx-auto leading-relaxed">
+            Join the evolution of intelligent systems. Where code meets consciousness.
           </p>
-          <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <button className="px-8 py-4 bg-gradient-to-r from-cyan-500 to-purple-600 text-white font-bold rounded-xl text-lg hover:opacity-90 transition-opacity">
-              START ENTERPRISE TRIAL
+          <div className="flex flex-col sm:flex-row gap-6 justify-center items-center">
+            <button className="px-12 py-4 bg-gradient-to-r from-cyan-400 to-purple-500 text-black font-bold rounded-2xl text-lg hover:shadow-2xl hover:shadow-cyan-400/30 transition-all duration-300 transform hover:scale-105">
+              Initiate System
             </button>
-            <button className="px-8 py-4 border border-cyan-500/50 text-cyan-400 font-bold rounded-xl text-lg hover:bg-cyan-500/10 transition-colors">
-              EXPLORE API DOCS
+            <button className="px-12 py-4 border-2 border-cyan-400/50 text-cyan-300 font-bold rounded-2xl text-lg hover:bg-cyan-400/10 transition-all duration-300">
+              Explore Consciousness
             </button>
           </div>
         </div>
       </section>
 
       {/* Footer */}
-      <footer className="border-t border-cyan-500/30 py-12">
-        <div className="max-w-7xl mx-auto px-6 text-center">
-          <div className="flex items-center justify-center gap-3 mb-4">
-            <div className="w-8 h-8 rounded-xl bg-gradient-to-br from-cyan-500 to-purple-600 flex items-center justify-center">
-              <div className="text-white font-bold text-sm">N</div>
+      <footer className="border-t border-cyan-500/20 py-16 relative">
+        <div className="max-w-6xl mx-auto px-6 text-center">
+          <div className="flex items-center justify-center gap-4 mb-6">
+            <div className="w-10 h-10 bg-gradient-to-br from-cyan-400 to-purple-500 rounded-xl flex items-center justify-center">
+              <span className="text-black font-bold">N</span>
             </div>
-            <span className="text-xl font-black bg-gradient-to-r from-cyan-400 to-purple-500 bg-clip-text text-transparent">
-              NEXUS
+            <span className="text-2xl font-black bg-gradient-to-r from-cyan-300 to-purple-300 bg-clip-text text-transparent">
+              Nexus Intelligence
             </span>
           </div>
-          <p className="text-cyan-400/60">
-            Enterprise AI Ecosystem for the Next Generation
+          <p className="text-cyan-300/60 text-lg max-w-md mx-auto">
+            Where artificial meets authentic intelligence
           </p>
-          <div className="border-t border-cyan-500/20 mt-8 pt-8 text-cyan-400/40 text-sm">
-            © 2024 NEXUS AI ECOSYSTEM. All systems operational.
+          <div className="border-t border-cyan-500/10 mt-12 pt-8 text-cyan-400/40">
+            © 2024 Nexus Cognitive Systems
           </div>
         </div>
       </footer>
