@@ -25,7 +25,11 @@ const SectionTitle = ({ kicker, title, sub }: { kicker: string; title: string; s
   </div>
 )
 
-const Stat = ({ icon: Icon, label, value }: { icon: any; label: string; value: string }) => (
+const Stat = ({ icon: Icon, label, value }: { 
+  icon: React.ComponentType<any>; 
+  label: string; 
+  value: string 
+}) => (
   <div className="rounded-2xl border border-white/10 bg-white/5 p-5 backdrop-blur">
     <div className="flex items-center gap-3">
       <div className="rounded-xl p-2" style={{ background: brand.glass }}>
@@ -62,7 +66,7 @@ export default function AINexusLanding() {
       
       const data = await aiResponse.json()
       setMessages(prev => [...prev, { type: 'ai', text: data.answer }])
-    } catch (error) {
+    } catch (error: any) {
       setMessages(prev => [...prev, { type: 'error', text: '❌ KI nicht verfügbar' }])
     } finally {
       setIsLoading(false)
