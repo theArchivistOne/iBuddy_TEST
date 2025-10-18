@@ -19,25 +19,3 @@
 .animate-float {
   animation: float 8s ease-in-out infinite;
 }
-Ecat > globals.css << 'EOF'
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
-
-@keyframes scan {
-  0% { background-position: 0 0; }
-  100% { background-position: 0 100%; }
-}
-
-@keyframes float {
-  0%, 100% { transform: translateY(0px) translateX(0px); }
-  50% { transform: translateY(-20px) translateX(10px); }
-}
-
-.animate-scan {
-  animation: scan 4s linear infinite;
-}
-
-.animate-float {
-  animation: float 8s ease-in-out infinite;
-}
