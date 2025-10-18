@@ -1,35 +1,74 @@
-import { NextResponse } from 'next/server'
-import { OpenAI } from '@langchain/openai'
+import { NextRequest, NextResponse } from "next/server";
+import { ChatOpenAI } from "@langchain/openai";
 
-export async function POST(request: Request) {
+interface ChatRequestBody {
+  message: string;
+}
+interface ChatResponseBody {
+  answer: string;
+  error?: string;
+}
+
+export async function POST(req: NextRequest) {
   try {
-    const { message } = await request.json()
-    
-    console.log('🔍 START API Call - Key:', process.env.OPENAI_API_KEY?.substring(0, 10) + '...')
-    
-    // Test: Einfache OpenAI Abfrage
-    const model = new OpenAI({
-      openAIApiKey: process.env.OPENAI_API_KEY!,
-      temperature: 0.1,  // Niedriger für konsistente Antworten
-      modelName: "gpt-3.5-turbo-instruct",  // Einfachereres Model
-      maxTokens: 150,
-    })
+    const body = (await req.json()) as Partial<ChatRequestBody>;
+    const message = (body?.message ?? "").toString().trim();
 
-    console.log('🚀 Sende zu OpenAI...')
-    
-    const response = await model.invoke(`Antworte kurz auf Deutsch: "${message}"`)
-    
-    console.log('✅ ERFOLG! Antwort:', response)
-    
-    return NextResponse.json({ answer: response })
+    if (!message) {
+      return NextResponse.json<ChatResponseBody>(
+        { answer: "", error: "Fehler: 'message' ist erforderlich." },
+        { status: 400 }
+      );
+    }
 
-  } catch (error: any) {
-    console.error('❌ DETAILED ERROR:', error)
-    console.error('❌ Error Message:', error.message)
-    console.error('❌ Error Stack:', error.stack)
-    
-    return NextResponse.json({ 
-      answer: `❌ Fehler: ${error.message}` 
-    })
+    const apiKey = process.env.OPENAI_API_KEY;
+    if (!apiKey) {
+      return NextResponse.json<ChatResponseBody>(
+        { answer: "", error: "Server-Setup-Fehler: OPENAI_API_KEY fehlt." },
+        { status: 500 }
+      );
+    }
+
+    const model = new ChatOpenAI({
+      apiKey,
+      model: "gpt-4o-mini",
+      temperature: 0.2,
+      maxTokens: 200,
+    });
+
+    const aiMessage = await model.invoke(
+      `Antworte kurz und auf Deutsch: "${message}"`
+    );
+
+    const answer =
+      typeof aiMessage.content === "string"
+        ? aiMessage.content
+        : Array.isArray(aiMessage.content)
+        ? aiMessage.content
+            .map((c: unknown) =>
+              typeof c === "object" && c && "text" in (c as Record<string, unknown>)
+                ? String((c as Record<string, unknown>).text ?? "")
+                : ""
+            )
+            .join(" ")
+            .trim()
+        : "";
+
+    if (!answer) {
+      return NextResponse.json<ChatResponseBody>(
+        { answer: "", error: "Die Modell-Antwort war leer." },
+        { status: 502 }
+      );
+    }
+
+    return NextResponse.json<ChatResponseBody>({ answer }, { status: 200 });
+  } catch (e) {
+    const err = e instanceof Error ? e : new Error("Unbekannter Fehler");
+    return NextResponse.json<ChatResponseBody>(
+      { answer: "", error: `Fehler: ${err.message}` },
+      { status: 500 }
+    );
   }
 }
+
+
