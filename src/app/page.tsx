@@ -3,7 +3,7 @@
 import { useState, useEffect, useRef } from 'react'
 import { Brain, MessageSquare, Users, Zap, Shield, Sparkles, Send, Bot, User, Cpu, Globe, ArrowRight, CheckCircle2 } from 'lucide-react'
 
-// Brand Design System (Professional + Futuristic)
+// Brand Design System
 const brand = {
   primary: "#2F6BFF",
   secondary: "#1E1E2F", 
@@ -26,7 +26,7 @@ const SectionTitle = ({ kicker, title, sub }: { kicker: string; title: string; s
 )
 
 const Stat = ({ icon: Icon, label, value }: { 
-  icon: React.ComponentType<any>; 
+  icon: React.ComponentType<{ className?: string }>; 
   label: string; 
   value: string 
 }) => (
@@ -45,7 +45,7 @@ const Stat = ({ icon: Icon, label, value }: {
 
 export default function AINexusLanding() {
   const [message, setMessage] = useState('')
-  const [messages, setMessages] = useState<Array<{type: string, text: string}>>([])
+  const [messages, setMessages] = useState<Array<{type: string; text: string}>>([])
   const [isLoading, setIsLoading] = useState(false)
   const messagesEndRef = useRef<HTMLDivElement>(null)
 
@@ -66,7 +66,8 @@ export default function AINexusLanding() {
       
       const data = await aiResponse.json()
       setMessages(prev => [...prev, { type: 'ai', text: data.answer }])
-    } catch (error: any) {
+    } catch (error: unknown) {
+      console.error('API Error:', error)
       setMessages(prev => [...prev, { type: 'error', text: '❌ KI nicht verfügbar' }])
     } finally {
       setIsLoading(false)
