@@ -1,8 +1,45 @@
 'use client'
 
 import { useState, useEffect, useRef } from 'react'
+import { Brain, MessageSquare, Users, Zap, Shield, Sparkles, Send, Bot, User, Cpu, Globe, ArrowRight, CheckCircle2 } from 'lucide-react'
 
-export default function Home() {
+// Brand Design System (Professional + Futuristic)
+const brand = {
+  primary: "#2F6BFF",
+  secondary: "#1E1E2F", 
+  accent: "#FFE24D",
+  bg: "#0b1020",
+  glass: "rgba(255,255,255,0.06)",
+}
+
+// Helper Components
+const Container = ({ children }: { children: React.ReactNode }) => (
+  <div className="mx-auto w-full max-w-7xl px-6 md:px-10">{children}</div>
+)
+
+const SectionTitle = ({ kicker, title, sub }: { kicker: string; title: string; sub?: string }) => (
+  <div className="mx-auto max-w-3xl text-center">
+    <div className="mb-3 text-sm font-semibold tracking-widest text-white/70 uppercase">{kicker}</div>
+    <h2 className="text-3xl md:text-5xl font-bold leading-tight text-white">{title}</h2>
+    {sub && <p className="mt-4 text-lg text-white/70">{sub}</p>}
+  </div>
+)
+
+const Stat = ({ icon: Icon, label, value }: { icon: any; label: string; value: string }) => (
+  <div className="rounded-2xl border border-white/10 bg-white/5 p-5 backdrop-blur">
+    <div className="flex items-center gap-3">
+      <div className="rounded-xl p-2" style={{ background: brand.glass }}>
+        <Icon className="h-5 w-5 text-white" />
+      </div>
+      <div>
+        <div className="text-2xl font-semibold text-white">{value}</div>
+        <div className="text-sm text-white/70">{label}</div>
+      </div>
+    </div>
+  </div>
+)
+
+export default function AINexusLanding() {
   const [message, setMessage] = useState('')
   const [messages, setMessages] = useState<Array<{type: string, text: string}>>([])
   const [isLoading, setIsLoading] = useState(false)
@@ -11,22 +48,22 @@ export default function Home() {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
     if (!message.trim()) return
-   
+    
     setIsLoading(true)
     setMessages(prev => [...prev, { type: 'user', text: message }])
     setMessage('')
-   
+    
     try {
       const aiResponse = await fetch('/api/chat', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ message })
       })
-     
+      
       const data = await aiResponse.json()
       setMessages(prev => [...prev, { type: 'ai', text: data.answer }])
     } catch (error) {
-      setMessages(prev => [...prev, { type: 'error', text: '❌ SYSTEM ERROR' }])
+      setMessages(prev => [...prev, { type: 'error', text: '❌ KI nicht verfügbar' }])
     } finally {
       setIsLoading(false)
     }
@@ -36,190 +73,263 @@ export default function Home() {
     messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' })
   }, [messages])
 
-  // Matrix-style glow effect
-  const [pulse, setPulse] = useState(0)
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setPulse(prev => (prev + 1) % 3)
-    }, 1000)
-    return () => clearInterval(interval)
-  }, [])
-
   return (
-    <div className="min-h-screen bg-black relative overflow-hidden">
-      {/* Cyber Grid Background */}
-      <div className="absolute inset-0 bg-[linear-gradient(rgba(0,255,255,0.03)_1px,transparent_1px),linear-gradient(90deg,rgba(0,255,255,0.03)_1px,transparent_1px)] bg-[size:50px_50px] [mask-image:radial-gradient(ellipse_80%_50%_at_50%_50%,black,transparent)]"></div>
-     
-      {/* Animated Scan Lines */}
-      <div className="absolute inset-0 bg-[linear-gradient(transparent_95%,rgba(0,255,255,0.05)_95%)] bg-[size:100%_4px] animate-scan"></div>
-     
-      {/* Glowing Orbs */}
-      <div className="absolute top-20 left-20 w-80 h-80 bg-cyan-500/10 rounded-full blur-3xl animate-pulse"></div>
-      <div className="absolute bottom-20 right-20 w-96 h-96 bg-purple-600/10 rounded-full blur-3xl animate-pulse" style={{animationDelay: '2s'}}></div>
-     
-      {/* Floating Data Particles */}
-      {[...Array(20)].map((_, i) => (
-        <div
-          key={i}
-          className="absolute text-cyan-400/30 text-xs font-mono animate-float"
-          style={{
-            left: `${Math.random() * 100}%`,
-            animationDelay: `${Math.random() * 5}s`,
-            animationDuration: `${10 + Math.random() * 10}s`
-          }}
-        >
-          {['0', '1'][Math.floor(Math.random() * 2)]}
-        </div>
-      ))}
+    <div className="min-h-screen w-full" style={{ background: brand.bg }}>
+      {/* Background Effects */}
+      <div className="pointer-events-none fixed inset-0 -z-10 bg-[radial-gradient(60%_40%_at_50%_0%,rgba(47,107,255,0.25),transparent),radial-gradient(40%_30%_at_0%_100%,rgba(255,226,77,0.18),transparent)]" />
+      
+      {/* Noise Texture */}
+      <div className="pointer-events-none fixed inset-0 -z-10 opacity-[0.04]" style={{
+        backgroundImage: "url('data:image/svg+xml;utf8,<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"100\" height=\"100\"><rect width=\"100\" height=\"100\" fill=\"#000\"/><g opacity=\"0.4\" stroke=\"white\" stroke-width=\"0.5\"><path d=\"M0 50 H100\"/><path d=\"M50 0 V100\"/></g></svg>')"
+      }} />
 
-      <div className="relative z-10 container mx-auto px-4 py-8">
-        {/* Header */}
-        <div className="text-center mb-12">
-          <div className="inline-flex items-center gap-4 mb-6">
-            <div className={`w-3 h-3 rounded-full bg-cyan-400 ${pulse === 0 ? 'shadow-lg shadow-cyan-400' : 'opacity-50'} transition-all`}></div>
-            <h1 className="text-7xl font-black bg-gradient-to-r from-cyan-400 via-blue-400 to-purple-400 bg-clip-text text-transparent tracking-tighter">
-              CYBER_AI
-            </h1>
-            <div className={`w-3 h-3 rounded-full bg-purple-400 ${pulse === 2 ? 'shadow-lg shadow-purple-400' : 'opacity-50'} transition-all`}></div>
-          </div>
-          <p className="text-cyan-300/80 text-lg font-light tracking-widest uppercase">NEURAL INTERFACE SYSTEM</p>
-          <div className="mt-2 inline-flex items-center gap-2 text-cyan-400/60 text-sm font-mono">
-            <div className="w-2 h-2 bg-cyan-400 rounded-full animate-pulse"></div>
-            SYSTEM_STATUS: <span className="text-green-400">ONLINE</span>
-          </div>
-        </div>
-
-        {/* Main Interface */}
-        <div className="max-w-5xl mx-auto">
-          {/* Terminal Container */}
-          <div className="bg-black/80 backdrop-blur-lg rounded-lg border border-cyan-500/30 shadow-2xl shadow-cyan-500/20 mb-6 overflow-hidden">
-            {/* Terminal Header */}
-            <div className="bg-gradient-to-r from-cyan-900/20 to-purple-900/20 border-b border-cyan-500/20 px-6 py-3">
-              <div className="flex items-center gap-3">
-                <div className="flex gap-1.5">
-                  <div className="w-3 h-3 bg-red-500 rounded-full"></div>
-                  <div className="w-3 h-3 bg-yellow-500 rounded-full"></div>
-                  <div className="w-3 h-3 bg-green-500 rounded-full"></div>
-                </div>
-                <div className="text-cyan-300 text-sm font-mono flex-1 text-center">TERMINAL_INTERFACE</div>
+      {/* Navigation */}
+      <header className="sticky top-0 z-30 border-b border-white/10 bg-[#0b1020]/70 backdrop-blur-xl">
+        <Container>
+          <div className="flex h-16 items-center justify-between">
+            <div className="flex items-center gap-3">
+              <div className="grid h-8 w-8 place-content-center rounded-xl" style={{ background: brand.primary }}>
+                <Brain className="h-5 w-5 text-white" />
+              </div>
+              <span className="text-white font-semibold">NexusCore</span>
+              <div className="ml-2 rounded-full bg-green-500/20 px-2 py-1 text-xs text-green-300 border border-green-500/30">
+                AI ACTIVE
               </div>
             </div>
-           
-            {/* Chat Display */}
-            <div className="h-96 p-6 overflow-y-auto bg-gradient-to-b from-black/50 to-cyan-900/10">
-              {messages.length === 0 ? (
-                <div className="h-full flex items-center justify-center">
-                  <div className="text-center">
-                    <div className="text-cyan-400 text-6xl mb-4 animate-pulse">⟠</div>
-                    <p className="text-cyan-300/80 font-mono text-lg mb-2">NEURAL_CORE_AWAITING_INPUT</p>
-                    <p className="text-cyan-400/50 text-sm font-mono">INITIATE_PROTOCOL: QUERY_SYSTEM</p>
-                  </div>
-                </div>
-              ) : (
-                <div className="space-y-3 font-mono">
-                  {messages.map((msg, index) => (
-                    <div key={index} className={`flex ${msg.type === 'user' ? 'justify-end' : 'justify-start'}`}>
-                      <div className={`max-w-2xl rounded border-l-4 px-4 py-3 ${
-                        msg.type === 'user'
-                          ? 'border-cyan-400 bg-cyan-500/10 text-cyan-100'
-                          : msg.type === 'error'
-                          ? 'border-red-400 bg-red-500/10 text-red-300'
-                          : 'border-purple-400 bg-purple-500/10 text-purple-100'
-                      }`}>
-                        <div className="flex items-center gap-2 mb-1 text-xs opacity-70">
-                          <span>{msg.type === 'user' ? 'USER' : msg.type === 'ai' ? 'AI_CORE' : 'SYSTEM'}</span>
-                          <span className="text-cyan-400/50">|</span>
-                          <span className="text-cyan-400/50">{new Date().toLocaleTimeString()}</span>
-                        </div>
-                        <div className="text-sm leading-relaxed">{msg.text}</div>
-                      </div>
-                    </div>
-                  ))}
-                 
-                  {isLoading && (
-                    <div className="flex justify-start">
-                      <div className="border-l-4 border-cyan-400 bg-cyan-500/10 rounded px-4 py-3 max-w-2xl">
-                        <div className="flex items-center gap-3 text-cyan-400 text-sm">
-                          <div className="flex gap-1">
-                            <div className="w-1.5 h-1.5 bg-cyan-400 rounded-full animate-pulse"></div>
-                            <div className="w-1.5 h-1.5 bg-cyan-400 rounded-full animate-pulse" style={{animationDelay: '0.2s'}}></div>
-                            <div className="w-1.5 h-1.5 bg-cyan-400 rounded-full animate-pulse" style={{animationDelay: '0.4s'}}></div>
-                          </div>
-                          <span>PROCESSING_NEURAL_RESPONSE</span>
-                        </div>
-                      </div>
-                    </div>
-                  )}
-                  <div ref={messagesEndRef} />
-                </div>
-              )}
-            </div>
-          </div>
-
-          {/* Input Console */}
-          <div className="bg-black/90 backdrop-blur-lg rounded-lg border border-cyan-500/30 p-1 shadow-2xl shadow-cyan-500/10">
-            <form onSubmit={handleSubmit} className="flex">
-              <div className="flex items-center px-4 text-cyan-400 font-mono text-sm">
-                &gt;
-              </div>
-              <input
-                type="text"
-                value={message}
-                onChange={(e) => setMessage(e.target.value)}
-                placeholder="ENTER_QUERY_PROTOCOL..."
-                className="flex-1 bg-transparent border-none text-cyan-100 placeholder-cyan-400/50 font-mono text-sm py-4 focus:outline-none focus:ring-0"
-                disabled={isLoading}
-              />
-              <button
-                type="submit"
-                disabled={isLoading || !message.trim()}
-                className="px-6 bg-gradient-to-r from-cyan-500 to-blue-500 text-black font-mono text-sm font-bold disabled:opacity-30 disabled:cursor-not-allowed hover:shadow-lg hover:shadow-cyan-500/25 transition-all m-1 rounded"
-              >
-                {isLoading ? 'EXECUTING' : 'EXECUTE'}
+            <nav className="hidden md:flex items-center gap-7 text-white/80">
+              <a href="#features" className="hover:text-white">Features</a>
+              <a href="#agents" className="hover:text-white">AI Agents</a>
+              <a href="#enterprise" className="hover:text-white">Enterprise</a>
+              <a href="#security" className="hover:text-white">Security</a>
+            </nav>
+            <div className="flex items-center gap-3">
+              <button className="px-4 py-2 text-white/90 hover:text-white border border-white/20 rounded-xl hover:bg-white/10 transition-all">
+                Dashboard
               </button>
-            </form>
+              <button className="px-4 py-2 text-black font-semibold rounded-xl transition-all" style={{ background: brand.accent }}>
+                Get Started
+              </button>
+            </div>
           </div>
+        </Container>
+      </header>
 
-          {/* System Dashboard */}
-          <div className="grid grid-cols-4 gap-4 mt-8">
+      {/* Hero Section */}
+      <section className="relative pt-14 pb-16 md:pt-24 md:pb-24">
+        <Container>
+          <div className="grid items-center gap-10 md:grid-cols-2">
+            {/* Left Content */}
+            <div>
+              <div className="rounded-full bg-white/10 border border-white/20 px-3 py-1 text-white text-sm inline-flex items-center gap-2 mb-4">
+                <Sparkles className="h-4 w-4" />
+                ENTERPRISE AI PLATFORM
+              </div>
+              
+              <h1 className="text-4xl md:text-6xl font-bold text-white leading-[1.1]">
+                Master-KI-Ökosystem
+                <span className="text-white/70 block">für Business Intelligence</span>
+              </h1>
+              
+              <p className="mt-5 text-lg text-white/80">
+                Verbinde spezialisierte KI-Agenten, analysiere Daten in Echtzeit und automatisere komplexe Workflows. 
+                Enterprise-ready mit voller Kontrolle.
+              </p>
+
+              <div className="mt-6 flex flex-col gap-3 sm:flex-row">
+                <button className="h-12 text-black text-base font-semibold rounded-xl flex items-center gap-2 transition-all" style={{ background: brand.accent }}>
+                  KI Testen <ArrowRight className="h-5 w-5" />
+                </button>
+                <button className="h-12 border border-white/30 text-white hover:bg-white/10 rounded-xl transition-all">
+                  Live Demo
+                </button>
+              </div>
+
+              {/* Stats */}
+              <div className="mt-8 grid grid-cols-2 gap-4 md:grid-cols-3">
+                <Stat icon={Zap} label="AI Requests" value="12.4k" />
+                <Stat icon={Users} label="Active Agents" value="8" />
+                <Stat icon={Shield} label="Security Score" value="100%" />
+              </div>
+            </div>
+
+            {/* AI Chat Interface */}
+            <div className="rounded-2xl border border-white/10 bg-white/5 backdrop-blur p-6">
+              <div className="flex items-center gap-2 mb-4">
+                <Cpu className="h-5 w-5 text-white" />
+                <h3 className="text-white font-semibold">Nexus AI Assistant</h3>
+              </div>
+
+              {/* Chat Messages */}
+              <div className="h-64 overflow-y-auto mb-4 space-y-3">
+                {messages.length === 0 ? (
+                  <div className="text-center text-white/60 h-full flex items-center justify-center">
+                    <div>
+                      <Bot className="h-8 w-8 mx-auto mb-2 opacity-50" />
+                      <p>Stelle deine erste Frage an die KI</p>
+                    </div>
+                  </div>
+                ) : (
+                  messages.map((msg, index) => (
+                    <div key={index} className={`flex ${msg.type === 'user' ? 'justify-end' : 'justify-start'}`}>
+                      <div className={`rounded-2xl p-3 max-w-[80%] ${
+                        msg.type === 'user' 
+                          ? 'bg-blue-500/20 border border-blue-500/30 text-white' 
+                          : msg.type === 'error'
+                          ? 'bg-red-500/20 border border-red-500/30 text-red-300'
+                          : 'bg-white/10 border border-white/10 text-white'
+                      }`}>
+                        <div className="flex items-center gap-2 mb-1">
+                          {msg.type === 'user' ? <User className="h-3 w-3" /> : <Bot className="h-3 w-3" />}
+                          <span className="text-xs opacity-70">
+                            {msg.type === 'user' ? 'You' : msg.type === 'ai' ? 'Nexus AI' : 'System'}
+                          </span>
+                        </div>
+                        {msg.text}
+                      </div>
+                    </div>
+                  ))
+                )}
+                {isLoading && (
+                  <div className="flex justify-start">
+                    <div className="bg-white/10 border border-white/10 rounded-2xl p-3">
+                      <div className="flex items-center gap-2 text-white/70">
+                        <div className="flex space-x-1">
+                          <div className="w-2 h-2 bg-white/70 rounded-full animate-bounce"></div>
+                          <div className="w-2 h-2 bg-white/70 rounded-full animate-bounce" style={{animationDelay: '0.1s'}}></div>
+                          <div className="w-2 h-2 bg-white/70 rounded-full animate-bounce" style={{animationDelay: '0.2s'}}></div>
+                        </div>
+                        <span className="text-xs">Nexus denkt nach...</span>
+                      </div>
+                    </div>
+                  </div>
+                )}
+                <div ref={messagesEndRef} />
+              </div>
+
+              {/* Input Area */}
+              <form onSubmit={handleSubmit} className="flex gap-2">
+                <input
+                  type="text"
+                  value={message}
+                  onChange={(e) => setMessage(e.target.value)}
+                  placeholder="Frage an Nexus AI stellen..."
+                  className="flex-1 bg-white/5 border border-white/20 rounded-xl px-4 py-3 text-white placeholder:text-white/40 focus:outline-none focus:border-white/40"
+                  disabled={isLoading}
+                />
+                <button
+                  type="submit"
+                  disabled={isLoading || !message.trim()}
+                  className="px-4 py-3 text-black font-semibold rounded-xl disabled:opacity-50 disabled:cursor-not-allowed transition-all flex items-center gap-2"
+                  style={{ background: brand.accent }}
+                >
+                  <Send className="h-4 w-4" />
+                  Senden
+                </button>
+              </form>
+            </div>
+          </div>
+        </Container>
+      </section>
+
+      {/* Features Section */}
+      <section id="features" className="py-16 md:py-24 border-t border-white/10 bg-gradient-to-b from-transparent to-white/5">
+        <Container>
+          <SectionTitle 
+            kicker="Plattform" 
+            title="Enterprise AI Features" 
+            sub="Alles was du für skalierbare KI-Lösungen brauchst - modular, sicher und hochverfügbar."
+          />
+          <div className="mt-12 grid gap-6 md:grid-cols-3">
             {[
-              { label: 'NEURAL_LOAD', value: '42%', color: 'cyan' },
-              { label: 'MEMORY_USAGE', value: '68%', color: 'blue' },
-              { label: 'RESPONSE_TIME', value: '0.4s', color: 'purple' },
-              { label: 'UPTIME', value: '99.8%', color: 'green' }
-            ].map((stat, index) => (
-              <div key={index} className="bg-black/60 backdrop-blur-lg rounded border border-cyan-500/20 p-4">
-                <div className="text-cyan-400/70 text-xs font-mono mb-1">{stat.label}</div>
-                <div className={`text-2xl font-bold text-${stat.color}-400 font-mono`}>{stat.value}</div>
-                <div className="mt-2 w-full bg-cyan-900/30 rounded-full h-1">
-                  <div
-                    className={`bg-${stat.color}-400 h-1 rounded-full transition-all duration-1000`}
-                    style={{ width: stat.value }}
-                  ></div>
+              {
+                icon: Globe,
+                title: "Multi-Agent System",
+                desc: "Spezialisierte KI-Agenten für verschiedene Aufgaben - nahtlos integriert und orchestriert."
+              },
+              {
+                icon: MessageSquare,
+                title: "Echtzeit-Kommunikation",
+                desc: "Agenten kommunizieren in Echtzeit, teilen Kontext und arbeiten zusammen an Lösungen."
+              },
+              {
+                icon: Shield,
+                title: "Enterprise Security",
+                desc: "End-to-End Verschlüsselung, DSGVO-Konformität und vollständige Datenkontrolle."
+              }
+            ].map((item, i) => (
+              <div key={i} className="rounded-2xl border border-white/10 bg-white/5 p-6">
+                <item.icon className="h-6 w-6 text-white"/>
+                <h3 className="mt-4 text-xl font-semibold text-white">{item.title}</h3>
+                <p className="mt-2 text-white/70">{item.desc}</p>
+                <div className="mt-4 flex items-center gap-2 text-sm text-white/70">
+                  <CheckCircle2 className="h-4 w-4"/>
+                  Production Ready
                 </div>
               </div>
             ))}
           </div>
-        </div>
-      </div>
+        </Container>
+      </section>
 
-      {/* Custom Animations */}
-      <style jsx global>{`
-        @keyframes scan {
-          0% { background-position: 0 0; }
-          100% { background-position: 0 100%; }
-        }
-        @keyframes float {
-          0%, 100% { transform: translateY(0px) translateX(0px); }
-          50% { transform: translateY(-20px) translateX(10px); }
-        }
-        .animate-scan {
-          animation: scan 4s linear infinite;
-        }
-        .animate-float {
-          animation: float 8s ease-in-out infinite;
-        }
-      `}</style>
+      {/* CTA Section */}
+      <section className="py-16 md:py-24 bg-gradient-to-r from-blue-500/10 to-purple-500/10">
+        <Container>
+          <div className="text-center">
+            <h2 className="text-3xl md:text-5xl font-bold text-white mb-6">
+              Starte deine KI-Transformation
+            </h2>
+            <p className="text-xl text-white/80 mb-8 max-w-2xl mx-auto">
+              Von der ersten KI-Integration bis zum vollständigen Enterprise-Ökosystem - wir begleiten dich.
+            </p>
+            <div className="flex flex-col sm:flex-row gap-4 justify-center">
+              <button className="px-8 py-4 text-black font-semibold rounded-xl text-lg transition-all" style={{ background: brand.accent }}>
+                Kostenlos starten
+              </button>
+              <button className="px-8 py-4 border border-white/30 text-white rounded-xl text-lg hover:bg-white/10 transition-all">
+                Enterprise Demo buchen
+              </button>
+            </div>
+          </div>
+        </Container>
+      </section>
+
+      {/* Footer */}
+      <footer className="border-t border-white/10 py-10">
+        <Container>
+          <div className="grid gap-8 md:grid-cols-4">
+            <div className="col-span-2">
+              <div className="flex items-center gap-3">
+                <div className="grid h-8 w-8 place-content-center rounded-xl" style={{ background: brand.primary }}>
+                  <Brain className="h-5 w-5 text-white" />
+                </div>
+                <span className="text-white font-semibold">NexusCore</span>
+              </div>
+              <p className="mt-3 text-white/70 max-w-md">
+                Enterprise KI-Ökosystem für Business Intelligence und automatisierte Workflows.
+              </p>
+            </div>
+            <div>
+              <div className="text-white/80 font-semibold">Produkt</div>
+              <ul className="mt-3 space-y-2 text-white/70">
+                <li><a href="#features" className="hover:text-white">Features</a></li>
+                <li><a href="#agents" className="hover:text-white">AI Agents</a></li>
+                <li><a href="#enterprise" className="hover:text-white">Enterprise</a></li>
+              </ul>
+            </div>
+            <div>
+              <div className="text-white/80 font-semibold">Unternehmen</div>
+              <ul className="mt-3 space-y-2 text-white/70">
+                <li><a href="#" className="hover:text-white">Über uns</a></li>
+                <li><a href="#" className="hover:text-white">Kontakt</a></li>
+                <li><a href="#" className="hover:text-white">Karriere</a></li>
+              </ul>
+            </div>
+          </div>
+          <div className="mt-8 text-center text-white/60 text-sm">
+            © {new Date().getFullYear()} NexusCore. Alle Rechte vorbehalten.
+          </div>
+        </Container>
+      </footer>
     </div>
   )
 }
