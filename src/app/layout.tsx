@@ -5,8 +5,8 @@ import "./globals.css";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: "NEXUS - KI Ökosystem",
-  description: "Enterprise KI-Ökosystem mit Multi-Agenten Architektur",
+  title: "CYBER_AI - Neural Interface",
+  description: "Advanced AI Neural Interface System",
 };
 
 export default function RootLayout({

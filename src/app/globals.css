@@ -2,37 +2,42 @@
 @tailwind components;
 @tailwind utilities;
 
-/* Matrix Rain Effect */
-.matrix-rain {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: linear-gradient(transparent 70%, rgba(0, 255, 65, 0.1) 100%);
-  background-size: 2px 2px;
-  animation: matrixRain 20s linear infinite;
-}
-
-@keyframes matrixRain {
+@keyframes scan {
   0% { background-position: 0 0; }
-  100% { background-position: 0 100vh; }
+  100% { background-position: 0 100%; }
 }
 
-/* Custom Scrollbar */
-::-webkit-scrollbar {
-  width: 8px;
+@keyframes float {
+  0%, 100% { transform: translateY(0px) translateX(0px); }
+  50% { transform: translateY(-20px) translateX(10px); }
 }
 
-::-webkit-scrollbar-track {
-  background: #0A0B14;
+.animate-scan {
+  animation: scan 4s linear infinite;
 }
 
-::-webkit-scrollbar-thumb {
-  background: #00F0FF;
-  border-radius: 4px;
+.animate-float {
+  animation: float 8s ease-in-out infinite;
+}
+Ecat > globals.css << 'EOF'
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@keyframes scan {
+  0% { background-position: 0 0; }
+  100% { background-position: 0 100%; }
 }
 
-::-webkit-scrollbar-thumb:hover {
-  background: #7B61FF;
+@keyframes float {
+  0%, 100% { transform: translateY(0px) translateX(0px); }
+  50% { transform: translateY(-20px) translateX(10px); }
+}
+
+.animate-scan {
+  animation: scan 4s linear infinite;
+}
+
+.animate-float {
+  animation: float 8s ease-in-out infinite;
 }
