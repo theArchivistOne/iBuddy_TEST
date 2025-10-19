@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useState, useEffect, useRef } from 'react';
-import { Send, User, TrendingUp, Shield, Zap, Network, BarChart3, Settings, Activity, CheckCircle, PlayCircle, PauseCircle, Sparkles, Rocket, Database, Globe, Clock, Brain, Atom, Wifi, Eye } from 'lucide-react';
+import { Send, User, TrendingUp, Shield, Zap, BarChart3, Activity, CheckCircle, PlayCircle, PauseCircle, Sparkles, Rocket, Clock, Brain, Atom, Eye } from 'lucide-react';
 
 type MessageType = 'user' | 'ai' | 'error' | 'system';
 
@@ -95,7 +95,7 @@ export default function NexusCoreUltra() {
 
       // Update and draw nodes
       for (let i = 0; i < nodes.length; i++) {
-        let node = nodes[i];
+        const node = nodes[i];
         
         // Update position
         node.x += node.vx;
@@ -269,7 +269,7 @@ export default function NexusCoreUltra() {
             ].map((item) => (
               <button
                 key={item.id}
-                onClick={() => setActiveTab(item.id as any)}
+                onClick={() => setActiveTab(item.id as 'dashboard' | 'chat' | 'agents' | 'analytics')
                 className={`w-full flex items-center gap-4 px-5 py-4 rounded-xl transition-all font-mono text-sm tracking-wider ${
                   activeTab === item.id
                     ? 'bg-gradient-to-r from-purple-500/40 via-violet-500/40 to-blue-500/40 border-2 border-purple-400/50'
