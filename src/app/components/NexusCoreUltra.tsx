@@ -1,12 +1,7 @@
 'use client';
 
 import React, { useState, useEffect, useRef } from 'react';
-import { 
-  Send, User, TrendingUp, Shield, Zap, Network, 
-  BarChart3, Settings, Activity, CheckCircle, 
-  PlayCircle, PauseCircle, Sparkles, Rocket, 
-  Database, Globe, Clock, Brain, Atom, Wifi, Eye
-} from 'lucide-react';
+import { Send, User, TrendingUp, Shield, Zap, Network, BarChart3, Settings, Activity, CheckCircle, PlayCircle, PauseCircle, Sparkles, Rocket, Database, Globe, Clock, Brain, Atom, Wifi, Eye } from 'lucide-react';
 
 type MessageType = 'user' | 'ai' | 'error' | 'system';
 
@@ -25,6 +20,13 @@ interface Agent {
   performance: number;
   specialty: string;
   avatar: string;
+}
+
+interface NeuralNode {
+  x: number;
+  y: number;
+  vx: number;
+  vy: number;
 }
 
 export default function NexusCoreUltra() {
@@ -75,7 +77,7 @@ export default function NexusCoreUltra() {
 
     // Initialize nodes
     const nodeCount = 50;
-    const nodes: {x: number, y: number, vx: number, vy: number}[] = [];
+    const nodes: NeuralNode[] = [];
     for (let i = 0; i < nodeCount; i++) {
       nodes.push({
         x: Math.random() * canvas.width,
