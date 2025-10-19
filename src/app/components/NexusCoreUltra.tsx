@@ -267,9 +267,9 @@ export default function NexusCoreUltra() {
               { id: 'agents', icon: <Atom className="w-5 h-5" />, label: 'AGENTS' },
               { id: 'analytics', icon: <Activity className="w-5 h-5" />, label: 'ANALYTICS' }
             ].map((item) => (
-              <button
+                <button
                 key={item.id}
-                onClick={() => setActiveTab(item.id as 'dashboard' | 'chat' | 'agents' | 'analytics')
+                onClick={() => setActiveTab(item.id as 'dashboard' | 'chat' | 'agents' | 'analytics')}
                 className={`w-full flex items-center gap-4 px-5 py-4 rounded-xl transition-all font-mono text-sm tracking-wider ${
                   activeTab === item.id
                     ? 'bg-gradient-to-r from-purple-500/40 via-violet-500/40 to-blue-500/40 border-2 border-purple-400/50'
